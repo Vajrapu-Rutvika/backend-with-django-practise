@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from mypro import views
+from django.urls import include
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -22,4 +24,6 @@ urlpatterns = [
     path('media/<path:path>/', views.media_handler, name='media_handler'),
 
     path('post/', views.go_to_post, name='go_to_post'),
+
+    path('',include('myapp.urls')),
 ]
