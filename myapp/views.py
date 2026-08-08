@@ -1,5 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+
 
 def home(request):
-    return render(request,'home.html')
+    context={
+        'user_name': 'Rutvika',
+        'items': ['mobile', 'laptop', 'tv'],
+        "name": "Rutvika",
+        "is_logged_in": False,
+    }
+    return render(request,'home.html', context)

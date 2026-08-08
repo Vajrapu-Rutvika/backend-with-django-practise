@@ -1,2 +1,28 @@
-<h1>welcome to my app</h1>
-<h2>this is my first app</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Hello {{user_name}}</h1>
+    <ul>
+    {%for item in items%}
+    <li>{{item}}</li>
+    {%endfor%}
+    </ul>
+        {% if is_logged_in %}
+        <h2>Hello, {{ name }}!</h2>
+        <p>You are logged in.</p>
+    {% else %}
+        <p>Please log in to continue.</p>
+    {% endif %}
+
+    {% comment %}
+        This is a Django comment.
+        It will not appear in the browser.
+    {% endcomment %}
+
+</body>
+</html>
