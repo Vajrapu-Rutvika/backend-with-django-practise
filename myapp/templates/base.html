@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{%block title%}My Website{%endblock%}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+      <header>
+             <h1>My website header</h1>
+             <a href="/">Home</a>
+             <a href="/about/">About</a>
+       </header>
+       <main>
+              {%block content%}
+              <p>welcome to my site</p>
+              {%endblock%}      
+        </main>
+        <footer>
+            <p>&copy; 2024 My Website</p>
+        </footer>
+</body>
+</html>        

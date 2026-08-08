@@ -12,9 +12,6 @@ def contact(request):
     return HttpResponse("Contact View - Function Based View")
 
 
-class About(View):
-    def get(self, request):
-        return HttpResponse("Class Based View")
 
 
 def profile(request, username):

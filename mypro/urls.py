@@ -11,7 +11,6 @@ urlpatterns = [
 
     path('contact/', views.contact, name='contact'),
 
-    path('about/', views.About.as_view(), name='about'),
 
     path('user/<str:username>/', views.profile, name='profile'),
 

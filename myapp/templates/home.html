@@ -1,28 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Document</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <h1>Hello {{user_name}}</h1>
-    <ul>
-    {%for item in items%}
-    <li>{{item}}</li>
-    {%endfor%}
-    </ul>
-        {% if is_logged_in %}
-        <h2>Hello, {{ name }}!</h2>
-        <p>You are logged in.</p>
-    {% else %}
-        <p>Please log in to continue.</p>
-    {% endif %}
-
-    {% comment %}
-        This is a Django comment.
-        It will not appear in the browser.
-    {% endcomment %}
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% block.super %}
+<h2>hello user!</h2>
+<p>this is the home page of my website</p>
+{% endblock%}
