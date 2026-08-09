@@ -29,3 +29,6 @@ def profile(request):
 def users(request):
     users=["rutvika","malathi","suresh"]
     return render(request,'users.html', {'users': users})
+def product_detail(request):
+    product={"name":"mobile","price":10000}
+    return render(request,'product_detail.html', {'product': product})
