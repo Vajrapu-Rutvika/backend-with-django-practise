@@ -32,3 +32,9 @@ def users(request):
 def product_detail(request):
     product={"name":"mobile","price":10000}
     return render(request,'product_detail.html', {'product': product})
+def welcome(request):
+    user={"is_authenticated": False, "username": "Rutvika"}
+    return render(request,'welcome.html', {'user': user})
+def items_list(request):
+    items=["item1","item2","item3"]
+    return render(request,'item.html', {'items': items})
