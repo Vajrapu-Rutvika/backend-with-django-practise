@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from .models import BlogPost
 from django.shortcuts import render
 
 
@@ -38,3 +38,6 @@ def welcome(request):
 def items_list(request):
     items=["item1","item2","item3"]
     return render(request,'item.html', {'items': items})
+def posts_list(request):
+    posts=BlogPost.objects.all()
+    return render(request,'post_list.html', {'posts': posts})
