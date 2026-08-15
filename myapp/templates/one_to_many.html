@@ -1,0 +1,14 @@
+<h1>one to many relationship</h1>
+<p>Blog Title:{{ blog.title }}</p>
+<ul>
+   {% for comment in Comments %}
+   <li>{{ comment.text }}</li>
+   {% empty %
+    <li>No comments available.</li>
+   {% endfor %}
+</ul>   
+
+
+
+
+

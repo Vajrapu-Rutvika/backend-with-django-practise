@@ -1,6 +1,8 @@
 from datetime import datetime
-from .models import BlogPost
+from .models import BlogPost, Profile, blog ,Comments,student,Courses
 from django.shortcuts import render
+from django.contrib.auth.models import User
+
 
 
 # def home(request):
@@ -41,3 +43,14 @@ def items_list(request):
 def posts_list(request):
     posts=BlogPost.objects.all()
     return render(request,'post_list.html', {'posts': posts})
+def one_to_one_demo(request):
+    users=User.objects.select_related('profile').all()
+   # profile=Profile.objects.filter(user=user).first()
+    return render(request,'one_to_one.html', {'users': users})
+def one_to_many_demo(request):
+    blogs=blog.objects.prefetch_related('comment_set').all()
+    return render(request,'one_to_many.html', {'blogs': blogs,'comment': Comments})
+
+def many_to_many_demo(request):
+    students = student.objects.all()
+    return render(request, 'manytomany.html', {'students': students})

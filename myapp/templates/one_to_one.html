@@ -1,0 +1,14 @@
+<h1>One-to-One Relationship</h1>
+
+{% for user in users %}
+    <p>Username: {{ user.username }}</p>
+    <p>email: {{ user.email }}</p>
+{% if user.profile %}
+    <p>Profile Bio: {{ user.profile.bio }}</p>
+{% else %}
+    <p>No profile available.</p>
+{% endif %}
+
+{% empty %}
+    <p>No users available.</p>
+{% endfor %}
