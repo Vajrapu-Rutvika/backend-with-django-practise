@@ -1,6 +1,8 @@
 from datetime import datetime
+
+from myapp.forms import BlogPostForm
 from .models import BlogPost, Profile, blog ,Comments,student,Courses
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 
 
@@ -54,3 +56,14 @@ def one_to_many_demo(request):
 def many_to_many_demo(request):
     students = student.objects.all()
     return render(request, 'manytomany.html', {'students': students})
+
+def create_post(request):
+    if request.method == "POST":
+        form=BlogPostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("posts_list")
+        
+    else:
+        form=BlogPostForm()
+    return render(request,"create_post.html",{'form':form})        

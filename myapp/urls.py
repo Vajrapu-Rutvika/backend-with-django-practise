@@ -14,4 +14,5 @@ urlpatterns = [
     path('one/', views.one_to_one_demo, name='one_to_one_demo'),
     path('many/', views.one_to_many_demo, name='one_to_many_demo'),
     path('manytomany/', views.many_to_many_demo, name='many_to_many_demo'),
+    path('create_post/', views.create_post, name='create_post'),
 ]
