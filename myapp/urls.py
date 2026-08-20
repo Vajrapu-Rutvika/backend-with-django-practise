@@ -15,4 +15,6 @@ urlpatterns = [
     path('many/', views.one_to_many_demo, name='one_to_many_demo'),
     path('manytomany/', views.many_to_many_demo, name='many_to_many_demo'),
     path('create_post/', views.create_post, name='create_post'),
+    path('register/', views.register, name='register'),
+    path('create_event/', views.create_event, name='create_event'),
 ]

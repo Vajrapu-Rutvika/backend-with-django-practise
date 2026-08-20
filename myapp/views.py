@@ -1,10 +1,9 @@
 from datetime import datetime
-
 from myapp.forms import BlogPostForm
 from .models import BlogPost, Profile, blog ,Comments,student,Courses
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-
+from .forms import registrationform,eventform
 
 
 # def home(request):
@@ -66,4 +65,26 @@ def create_post(request):
         
     else:
         form=BlogPostForm()
-    return render(request,"create_post.html",{'form':form})        
+    return render(request,"create_post.html",{'form':form})      
+def register(request):
+    if request.method == "POST":
+        form=registrationform(request.POST)
+        if form.is_valid():
+            User.objects.create_user(
+                username=form.cleaned_data['username'],
+                email=form.cleaned_data['email'],
+                password=form.cleaned_data['password'],
+            )
+            return render(request,"success.html",{"username":form.cleaned_data.get('username')})
+    else:
+        form=registrationform()
+    return render(request,"register.html",{'form':form})
+def create_event(request):
+    if request.method == "POST":
+        form = eventform(request.POST)
+        if form.is_valid():
+            # Process the form data (e.g., save to the database)
+            return render(request, "eventsuccess.html", {"message": "Event created successfully!"})
+    else:
+        form = eventform()
+    return render(request, "createevent.html", {"form": form})
