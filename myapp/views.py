@@ -7,6 +7,9 @@ from django.contrib.auth.models import User
 from .forms import registrationform,eventform
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login,logout
 
 
 
@@ -103,4 +106,23 @@ def register_auth(request):
         form = UserCreationForm()
 
     return render(request, "register_auth.html", {"form": form})
+
+def user_login(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request,data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect("dashboard")
+    else:
+        form = AuthenticationForm()
+    return render(request, "login.html" , {"form":form})    
+def user_logout(request):
+    logout(request)
+    return redirect("login")
+@login_required
+def dashboard(request):
+    return render(request,"dashboard.html")
+
+
                
