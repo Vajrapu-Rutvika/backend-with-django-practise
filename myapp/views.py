@@ -1,9 +1,13 @@
 from datetime import datetime
+from pyexpat.errors import messages
 from myapp.forms import BlogPostForm
 from .models import BlogPost, Profile, blog ,Comments,student,Courses
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from .forms import registrationform,eventform
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+
 
 
 # def home(request):
@@ -88,3 +92,15 @@ def create_event(request):
     else:
         form = eventform()
     return render(request, "createevent.html", {"form": form})
+def register_auth(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Account created successfully!")
+            return redirect("login")
+    else:
+        form = UserCreationForm()
+
+    return render(request, "register_auth.html", {"form": form})
+               

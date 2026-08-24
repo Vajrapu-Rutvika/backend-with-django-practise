@@ -17,4 +17,5 @@ urlpatterns = [
     path('create_post/', views.create_post, name='create_post'),
     path('register/', views.register, name='register'),
     path('create_event/', views.create_event, name='create_event'),
+    path('auth/', views.register_auth, name='register_auth'),
 ]
