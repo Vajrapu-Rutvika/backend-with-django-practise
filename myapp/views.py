@@ -7,9 +7,9 @@ from django.contrib.auth.models import User
 from .forms import registrationform,eventform
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login,logout
+from django.contrib.auth import login,logout,update_session_auth_hash
 
 
 
@@ -123,6 +123,21 @@ def user_logout(request):
 @login_required
 def dashboard(request):
     return render(request,"dashboard.html")
+@login_required
+def reset_pass(request):
+    if request.method == "POST":
+        form = PasswordChangeForm(user=request.user,data=request.POST)
+        if form.is_valid():
+            user=form.save()
+            update_session_auth_hash(request,user)
+            messages.success(request,"password changed successfully")
+            return redirect("dashboard")
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render(request,"change_password.html",{"form" : form})    
+
+
+
 
 
                
