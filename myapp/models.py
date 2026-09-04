@@ -30,4 +30,8 @@ class Courses(models.Model):
 
 class  student(models.Model):
     name=models.CharField(max_length=100)
-    courses=models.ManyToManyField(Courses)    
+    courses=models.ManyToManyField(Courses)   
+
+class blogpermissionpost(models.Model):
+    title=models.CharField(maxm_length=200)
+    content=models 
