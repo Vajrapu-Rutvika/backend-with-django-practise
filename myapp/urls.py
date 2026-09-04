@@ -22,12 +22,18 @@ urlpatterns = [
     path('login/',views.user_login,name="login"),
     path('logout/',views.user_logout,name="logout"),
     path('dashboard/',views.dashboard,name="dashboard"),
-    path('pass_change/',views.reset_pass,name="reset_pass"),
+    path('pass_change/',views.reset_pass,name="password_change"),
 
     path('password_reset/',auth_views.PasswordResetView.as_view(),name="password_reset"),
     path('password_reset/done/',auth_views.PasswordResetDoneView.as_view(),name="password_reset_done"),
     path('reset/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(),name="password_reset_confirm"),
     path('reset/done/',auth_views.PasswordResetCompleteView.as_view(),name="password_reset_complete"),
+    path('addblog/',views.addblogpost,name="add_blog"),
+    path('edit_blogpost/<int:post_id>/', views.edit_blogpost, name='edit_blog'),
+    path('view_blogpost/<int:post_id>/', views.view_blogpost, name='view_blogpost'),
+    path('delete_blogpost/<int:post_id>/', views.delete_blogpost, name='delete_blog'),
+    path('posts_list/', views.posts_list, name='view_posts'),
+
  
 
 ]

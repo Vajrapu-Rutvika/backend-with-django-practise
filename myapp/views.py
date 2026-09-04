@@ -1,14 +1,14 @@
 from datetime import datetime
 from pyexpat.errors import messages
 from myapp.forms import BlogPostForm
-from .models import BlogPost, Profile, blog ,Comments,student,Courses
-from django.shortcuts import redirect, render
+from .models import BlogPost, Profile, blog ,Comments,student,Courses,BlogPermissionPost
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from .forms import registrationform,eventform
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login,logout,update_session_auth_hash
 
 
@@ -134,10 +134,44 @@ def reset_pass(request):
             return redirect("dashboard")
     else:
         form = PasswordChangeForm(user=request.user)
-    return render(request,"change_password.html",{"form" : form})    
+    return render(request,"change_password.html",{"form" : form})   
+@login_required 
+@permission_required('myapp.add_blogpermissionpost', raise_exception=True)
+def addblogpost(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        content= request.POST.get('content')
+        BlogPermissionPost.objects.create(title=title, content=content, author=request.user)
+        messages.success(request, "Blog post added successfully!")
+        return redirect("dashboard")
+    
+    return render(request,"addblog.html")
+    
+@login_required 
+@permission_required('myapp.change_blogpermissionpost', raise_exception=True)
+
+def edit_blogpost(request, post_id):
+    post = get_object_or_404(BlogPermissionPost, id=post_id)
+    if request.method == "POST":
+        post.title = request.POST.get('title')
+        post.content = request.POST.get('content')
+        post.save()
+        messages.success(request, "Blog post updated successfully!")
+        return redirect("posts_list")
+    return render(request, "edit_blogpost.html", {"post": post})
 
 
-
-
-
-               
+@login_required 
+@permission_required('myapp.view_blogpermissionpost', raise_exception=True)
+def view_blogpost(request, post_id):
+    post = get_object_or_404(BlogPermissionPost, id=post_id)
+    return render(request, "view_blogpost.html", {"post": post})
+@login_required 
+@permission_required('myapp.change_blogpermissionpost', raise_exception=True)
+def delete_blogpost(request, post_id):
+    post = BlogPermissionPost.objects.get(id=post_id)
+    if request.method == "POST":
+        post.delete()
+        messages.success(request, "Blog post deleted successfully!")
+        return redirect("posts_list")
+    return render(request, "delete_blogpost.html", {"post": post})
