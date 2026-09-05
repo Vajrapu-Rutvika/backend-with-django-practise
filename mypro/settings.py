@@ -60,6 +60,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'myapp.middleware.RequestloggingMiddleware',
+    'myapp.middleware.AdvancedMiddleware',
+    'myapp.middleware.FirstMiddleware',
+    'myapp.middleware.SecondMiddleware',
 ]
 
 ROOT_URLCONF = 'mypro.urls'
