@@ -35,6 +35,7 @@ urlpatterns = [
     path('posts_list/', views.posts_list, name='view_posts'),
     path('basic/', views.basic_queries, name='basic_queries'),
     path('aggregations/', views.aggregation_queries, name='aggregation_queries'),
+    path('f_expression/', views.f_expression_demo, name='f_expression_demo'),
 
  
 

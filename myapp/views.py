@@ -223,3 +223,5 @@ def f_expression_demo(request):
     Book.objects.update(price=F('price')+50)
     books=Book.objects.all()
     return render(request, 'f_expression_demo.html', {'books': books})
+
+
