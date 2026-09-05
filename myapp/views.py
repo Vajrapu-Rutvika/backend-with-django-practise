@@ -225,3 +225,7 @@ def f_expression_demo(request):
     return render(request, 'f_expression_demo.html', {'books': books})
 
 
+#raw queries
+def raw_queries(request):
+    books=Book.objects.raw('SELECT id,title,price FROM myapp_book WHERE price> %s',[300])
+    return render(request, 'raw_queries.html', {'books': books})
