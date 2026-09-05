@@ -229,3 +229,7 @@ def f_expression_demo(request):
 def raw_queries(request):
     books=Book.objects.raw('SELECT id,title,price FROM myapp_book WHERE price> %s',[300])
     return render(request, 'raw_queries.html', {'books': books})
+
+def optimization_demo(request):
+    books=Book.objects.select_related('author').all()
+    return render(request, 'optimization_demo.html', {'books': books})

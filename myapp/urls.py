@@ -37,7 +37,7 @@ urlpatterns = [
     path('aggregations/', views.aggregation_queries, name='aggregation_queries'),
     path('f_expression/', views.f_expression_demo, name='f_expression_demo'),
     path('raw_queries/', views.raw_queries, name='raw_queries'),
-
+    path('optimization/', views.optimization_demo, name='optimization_demo'),
  
 
 ]
