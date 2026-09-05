@@ -1,7 +1,9 @@
 from datetime import datetime
 from pyexpat.errors import messages
+
+from django.http import Http404
 from myapp.forms import BlogPostForm
-from .models import BlogPost, Profile, blog ,Comments,student,Courses,BlogPermissionPost
+from .models import BlogPost, Book, Profile, blog ,Comments,student,Courses,BlogPermissionPost
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.models import User
 from .forms import registrationform,eventform
@@ -10,6 +12,7 @@ from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm,PasswordChangeForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import login,logout,update_session_auth_hash
+from django.db.models import Avg, Max, Count,DecimalField, F, ExpressionWrapper
 
 
 
@@ -175,3 +178,48 @@ def delete_blogpost(request, post_id):
         messages.success(request, "Blog post deleted successfully!")
         return redirect("posts_list")
     return render(request, "delete_blogpost.html", {"post": post})
+
+#Basic Queries
+
+def basic_queries(request):
+    try:
+        all_books=Book.objects.all() #SELECT * FROM Book;
+        filter_books=Book.objects.filter(author__name='apj')#SELECT * FROM Book JOIN Author WHERE Author.name='apj';
+        exclude_books=Book.objects.exclude(price__lt=500)#SELECT * FROM Book WHERE price >= 500;
+        get_Book=Book.objects.get(title='wings of fire')#SELECT * FROM Book WHERE title='wings of fire';
+
+        context={
+            'all_books': all_books,
+            'filter_books': filter_books,
+            'exclude_books': exclude_books,
+            'get_book': get_Book,
+        }
+
+        return render(request, 'basic_queries.html', context)
+    except Book.DoesNotExist:
+        raise Http404("Book not found")
+
+#aggrigations
+
+def aggregation_queries(request):
+    avg_price=Book.objects.aggregate(Avg('price'))#SELECT AVG(price) FROM Book;
+    max_price=Book.objects.aggregate(Max('price'))#SELECT MAX(price) FROM Book;
+    total_books=Book.objects.aggregate(Count('id'))#SELECT COUNT(id) FROM Book;
+    annotated_books=Book.objects.annotate(
+        discounted_price=ExpressionWrapper(
+            F('price')*0.9,
+            output_field=DecimalField(max_digits=6, decimal_places=2)
+        )
+    )
+    context={
+        'avg_price': avg_price,
+        'max_price': max_price,
+        'total_books': total_books,
+        'annotated_books': annotated_books,
+    }
+    return render(request, 'aggregation_queries.html', context)
+#F expression
+def f_expression_demo(request):
+    Book.objects.update(price=F('price')+50)
+    books=Book.objects.all()
+    return render(request, 'f_expression_demo.html', {'books': books})

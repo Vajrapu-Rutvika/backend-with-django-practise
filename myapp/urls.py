@@ -33,6 +33,8 @@ urlpatterns = [
     path('view_blogpost/<int:post_id>/', views.view_blogpost, name='view_blogpost'),
     path('delete_blogpost/<int:post_id>/', views.delete_blogpost, name='delete_blog'),
     path('posts_list/', views.posts_list, name='view_posts'),
+    path('basic/', views.basic_queries, name='basic_queries'),
+    path('aggregations/', views.aggregation_queries, name='aggregation_queries'),
 
  
 
